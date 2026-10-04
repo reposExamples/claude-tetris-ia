@@ -58,7 +58,7 @@ jobs:
                - Un label `priority:*` (high, medium, low).
                - Opcionalmente `good first issue`, `help wanted`, `invalid` o `duplicate` (para duplicados, busca antes con `gh search issues`).
                Si el issue fue editado y algún label de tipo, `area:*` o `priority:*` ya no aplica, quítalo con `--remove-label`. No toques otros labels puestos por personas.
-            4. Escribe el diagnóstico en el archivo `triage-diagnosis.md` (raíz del workspace), en Markdown, con estas secciones:
+            4. Escribe el diagnóstico en el archivo `triage-diagnosis.md` (raíz del workspace). Su contenido se publicará tal cual como comentario en GitHub, así que debe estar en formato Markdown que GitHub entienda (GitHub Flavored Markdown): encabezados con `##`, listas con `-` o `1.`, código en línea con comillas invertidas y bloques de código con triple comilla invertida indicando el lenguaje (p. ej. ```js). No uses HTML ni sintaxis que GitHub no renderice. Estas son las secciones:
                - ## Resumen del problema
                - ## Clasificación (labels asignados y por qué)
                - ## Análisis técnico y causa probable (con referencias `archivo:línea`)
