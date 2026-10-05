@@ -5,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tetris</title>
   <link rel="stylesheet" href="style.css" />
+  <script>
+    try { document.documentElement.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark'; } catch (e) {}
+  </script>
 </head>
 <body>
+  <button id="theme-toggle" type="button" aria-pressed="false">🌙 Oscuro</button>
+
   <h1 class="title">TETRIS</h1>
 
   <div class="wrapper">
