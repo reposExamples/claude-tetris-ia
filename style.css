@@ -184,7 +184,7 @@ kbd {
   color: var(--accent);
 }
 
-#restart-btn {
+#restart-btn, #play-btn, #save-btn {
   margin-top: 8px;
   background: var(--accent);
   color: var(--on-accent);
@@ -198,7 +198,7 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
+#restart-btn:hover, #play-btn:hover, #save-btn:hover {
   background: var(--accent-hover);
 }
 
@@ -218,4 +218,99 @@ kbd {
 
 #theme-toggle:hover {
   border-color: var(--accent);
+}
+
+/* ---- Récords ---- */
+.start-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--accent);
+}
+
+#overlay-record {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--accent);
+}
+
+.records ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 220px;
+}
+
+.records li {
+  display: flex;
+  gap: 8px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  text-align: left;
+}
+
+.records li.empty { color: var(--label); }
+
+.records li.highlight {
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+}
+
+.rec-pos { width: 20px; }
+.rec-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.rec-stats {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+#name-form {
+  display: flex;
+  gap: 8px;
+}
+
+#name-form.hidden, #overlay-record.hidden, #overlay-records.hidden {
+  display: none;
+}
+
+#name-input {
+  width: 140px;
+  padding: 8px 10px;
+  border: 1px solid var(--board-border);
+  border-radius: 6px;
+  background: var(--board-bg);
+  color: var(--text);
+  font-size: 14px;
+  user-select: text;
+}
+
+#name-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+#save-btn {
+  margin-top: 0;
+  padding: 8px 16px;
+}
+
+#clear-records-btn {
+  background: none;
+  border: 1px solid var(--board-border);
+  border-radius: 6px;
+  color: var(--muted);
+  padding: 6px 16px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#clear-records-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
 }
