@@ -19,7 +19,7 @@ Tetris in vanilla JavaScript + HTML5 Canvas + CSS. No dependencies, no build ste
 
 Three files, loaded by `index.html` via a plain `<script src="game.js">` (no modules, `'use strict'`):
 
-- `index.html` — fixed DOM the script depends on by id: `board` (300×600 canvas), `next-canvas` (120×120), `score`/`lines`/`level`, and the `overlay` / `overlay-title` / `overlay-score` / `restart-btn` group. Renaming an id requires updating the lookups at the top of `game.js`.
+- `index.html` — fixed DOM the script depends on by id: `board` (300×600 canvas), `next-canvas` (120×120), `score`/`lines`/`level`, the `overlay` / `overlay-title` / `overlay-score` / `restart-btn` group (game over), and the `pause-menu` group (`resume-btn`, `pause-restart-btn`, `controls-btn`, `pause-controls`, `start-level`). Renaming an id requires updating the lookups at the top of `game.js`.
 - `style.css` — layout and theming only.
 - `game.js` — all game logic, using module-level mutable globals (`board`, `current`, `next`, `score`, `lines`, `level`, `paused`, `gameOver`, `dropInterval`, ...) that `init()` resets.
 
@@ -29,5 +29,5 @@ Key points in `game.js`:
 - Pieces are `{type, shape, x, y}`; shapes are square matrices rotated with `rotateCW` (rotation is clockwise only, with horizontal kicks `[0,-1,1,-2,2]` in `tryRotate`). `collide(shape, ox, oy)` is the single collision check used by movement, rotation, ghost, and spawn; it allows `ny < 0`.
 - Game loop: `loop(ts)` via `requestAnimationFrame` accumulates `dropAccum` and applies gravity when it exceeds `dropInterval`; it also calls `draw()` every frame. Pause/game over work by `cancelAnimationFrame(animId)` and restarting `loop`; `init()` cancels any existing frame before scheduling a new one.
 - Piece lifecycle: `lockPiece()` → `merge()` → `clearLines()` (updates lines/score/level/`dropInterval`) → `spawn()` (promotes `next`, game over if the spawn collides). Soft/hard drop award points directly (1/cell and 2/cell); line-clear scoring is `LINE_SCORES[n] * level`.
-- Input is a single `keydown` handler at the bottom; `KeyP` is handled before the paused/gameOver guard.
+- Input is a single `keydown` handler at the bottom; `KeyP`/`Escape` toggle pause before the paused/gameOver guard. Pause shows `#pause-menu` (not `#overlay`); on resume, game keys are ignored for `RESUME_GRACE_MS` and key repeats are dropped until a `keyup`. `startLevel` (localStorage, 1–10) applies to the next game via `init()`; `runStartLevel` fixes the current game's base, and `intervalForLevel(level)` gives the drop interval.
 - Piece generation is plain `Math.random()` per piece (no 7-bag).
