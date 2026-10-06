@@ -25,7 +25,8 @@ Three files, loaded by `index.html` via a plain `<script src="game.js">` (no mod
 
 Key points in `game.js`:
 
-- Board is a `ROWS×COLS` matrix of ints; `0` is empty, `1–7` index into both `COLORS` and `PIECES` (so piece type id == color id). Keep the three in sync when changing pieces.
+- Board is a `ROWS×COLS` matrix of ints; `0` is empty, `1–7` index into both `PIECES` and the active skin's `colors` (so piece type id == color id). `COLORS` is just the Retro palette (`SKINS.retro.colors`). Keep `PIECES` and every skin's `colors` array in sync when changing pieces.
+- Skins: `SKINS` (`retro`, `neon`, `pastel`, `pixel`) each define `colors`, `drawBlock(context, px, py, size, color, alpha)` and optionally `boardBg`/`grid`. `drawBlock(context, x, y, colorIndex, size, alpha)` delegates to the active `skin`; `draw()`/`drawNext()` paint `boardBg` or `clearRect`. `applySkin(name)` redraws immediately; preference is stored in `localStorage` key `skin` (select `#skin-select`).
 - Pieces are `{type, shape, x, y}`; shapes are square matrices rotated with `rotateCW` (rotation is clockwise only, with horizontal kicks `[0,-1,1,-2,2]` in `tryRotate`). `collide(shape, ox, oy)` is the single collision check used by movement, rotation, ghost, and spawn; it allows `ny < 0`.
 - Game loop: `loop(ts)` via `requestAnimationFrame` accumulates `dropAccum` and applies gravity when it exceeds `dropInterval`; it also calls `draw()` every frame. Pause/game over work by `cancelAnimationFrame(animId)` and restarting `loop`; `init()` cancels any existing frame before scheduling a new one.
 - Piece lifecycle: `lockPiece()` → `merge()` → `clearLines()` (updates lines/score/level/`dropInterval`) → `spawn()` (promotes `next`, game over if the spawn collides). Soft/hard drop award points directly (1/cell and 2/cell); line-clear scoring is `LINE_SCORES[n] * level`.
